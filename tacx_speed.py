@@ -39,7 +39,10 @@ def countRPM(channel):
 def getSpeed():
     avg_rev = sum(rev_readings) / 10
 
-    if avg_rev:
+    if avg_rev:  # return 0 if lastreading is 5 seconds ago
+        if lastreading < (time.time() - 5):
+            return 0
+
         speed = (tire_circumference / avg_rev) * 3.6
 
         rpm = int(60 / avg_rev)
